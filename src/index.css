@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-  width: 80vw;
+  width: 90vw;
   height: 90vh;
   background-color: rgba(17, 25, 40, 0.75);
   backdrop-filter: blur(19px) saturate(180%);
@@ -30,4 +30,10 @@ body {
   font-size: 36px;
   border-radius: 10px;
   background-color: rgba(17, 25, 40, 0.9);
+}
+.container::-webkit-scrollbar{
+  display:none;
+}
+body::-webkit-scrollbar{
+  display:none;
 }

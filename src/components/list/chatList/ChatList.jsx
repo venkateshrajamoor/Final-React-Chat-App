@@ -12,7 +12,8 @@ const ChatList = () => {
   const [input, setInput] = useState("");
 
   const { currentUser } = useUserStore();
-  const { chatId, changeChat } = useChatStore();
+  const { changeChat } = useChatStore();
+  
 
   useEffect(() => {
     const unSub = onSnapshot(
@@ -66,7 +67,7 @@ const ChatList = () => {
 
   const filteredChats = chats.filter((c) =>
     c.user.username.toLowerCase().includes(input.toLowerCase())
-  );
+  ); 
 
   return (
     <div className="chatList">

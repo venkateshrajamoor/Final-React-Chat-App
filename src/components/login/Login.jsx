@@ -6,9 +6,9 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, db } from "../../lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDocs } from "firebase/firestore";
 import upload from "../../lib/upload";
-
+import { collection, query, where } from "firebase/firestore";
 const Login = () => {
   const [avatar, setAvatar] = useState({
     file: null,
@@ -25,20 +25,16 @@ const Login = () => {
       });
     }
   };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
 
     const { username, email, password } = Object.fromEntries(formData);
-
-    // VALIDATE INPUTS
     if (!username || !email || !password)
       return toast.warn("Please enter inputs!");
     if (!avatar.file) return toast.warn("Please upload an avatar!");
 
-    // VALIDATE UNIQUE USERNAME
     const usersRef = collection(db, "users");
     const q = query(usersRef, where("username", "==", username));
     const querySnapshot = await getDocs(q);

@@ -4,7 +4,6 @@ import {
   arrayUnion,
   collection,
   doc,
-  getDoc,
   getDocs,
   query,
   serverTimestamp,
@@ -33,7 +32,7 @@ const AddUser = () => {
       const querySnapShot = await getDocs(q);
 
       if (!querySnapShot.empty) {
-        setUser(querySnapShot.docs[0].data());
+        setUser(querySnapShot.docs.data());
       }
     } catch (err) {
       console.log(err);
