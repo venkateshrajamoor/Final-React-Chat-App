@@ -147,6 +147,9 @@
 
     .emoji {
       position: relative;
+      &:disabled {
+        cursor: not-allowed;
+      }
 
       .picker {
         position: absolute;

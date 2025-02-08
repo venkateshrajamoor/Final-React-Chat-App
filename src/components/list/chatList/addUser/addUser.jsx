@@ -32,7 +32,7 @@ const AddUser = () => {
       const querySnapShot = await getDocs(q);
 
       if (!querySnapShot.empty) {
-        setUser(querySnapShot.docs.data());
+        setUser(querySnapShot.docs[0].data());
       }
     } catch (err) {
       console.log(err);

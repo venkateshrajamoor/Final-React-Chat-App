@@ -21,7 +21,7 @@ const App = () => {
     return () => {
       unSub();
     };
-  }, [fetchUserInfo]);
+  }, [currentUser]);
 
 
   if (isLoading) return <div className="loading">Loading...</div>;

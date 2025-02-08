@@ -34,7 +34,7 @@ const Login = () => {
     if (!username || !email || !password)
       return toast.warn("Please enter inputs!");
     if (!avatar.file) return toast.warn("Please upload an avatar!");
-
+    
     const usersRef = collection(db, "users");
     const q = query(usersRef, where("username", "==", username));
     const querySnapshot = await getDocs(q);
@@ -63,6 +63,7 @@ const Login = () => {
     } catch (err) {
       console.log(err);
       toast.error(err.message);
+      setLoading(false);
     } finally {
       setLoading(false);
     }

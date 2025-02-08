@@ -29,7 +29,7 @@ const Chat = () => {
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [currentUser.id]);
+  }, [chat]);
 
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
@@ -99,13 +99,19 @@ const Chat = () => {
       });
     } catch (err) {
       console.log(err);
-    } finally{
-    setImg({
-      file: null,
-      url: "",
-    });
+    } finally {
+      setImg({
+        file: null,
+        url: "",
+      });
+      setText("");
+    }
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {  
+      e.preventDefault(); 
 
-    // setText("");
+      handleSend();  
     }
   };
 
@@ -130,13 +136,14 @@ const Chat = () => {
               className={
                 message.senderId === currentUser?.id ? "message own" : "message"
               }
-              key={message?.createAt}
+              key={message?.createdAt}
             >
               <div className="texts">
                 {message.img && <img src={message.img} alt="" />}
                 <p>{message.text}</p>
               </div>
             </div>
+            
           ))}
           {img.url && (
             <div className="message own">
@@ -170,13 +177,15 @@ const Chat = () => {
             }
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onKeyDown={handleKeyDown}  
             disabled={isCurrentUserBlocked || isReceiverBlocked}
           />
           <div className="emoji">
-            <img
+            <img 
               src="./emoji.png"
               alt=""
               onClick={() => setOpen((prev) => !prev)}
+              
             />
             <div className="picker">
               <EmojiPicker open={open} onEmojiClick={handleEmoji} />
